@@ -334,6 +334,7 @@ begin
             begin
               F.AguardeOff;
               mmoPrincipal.Lines.Add('Erro ao executar o script: ' + vlsScript);
+              mmoPrincipal.Lines.Add('Erro: ' + E.Message);
               Application.MessageBox(PChar('Erro: ' + e.Message), 'Atenção', MB_OK + MB_ICONWARNING);
             end;
           end;
