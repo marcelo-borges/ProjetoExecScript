@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/01/21 08:55:24.000.012,=C:\Users\Microdata\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/01/22 16:11:43.000.329,=C:\Users\Microdata\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/02/20 15:21:29.000.071,=C:\Users\Microdata\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/02/20 15:22:08.000.578,D:\Marcelo\ProjetoExecScript\View.Principal.pas=C:\Users\Microdata\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/02/20 15:22:08.000.578,D:\Marcelo\ProjetoExecScript\View.Principal.dfm=C:\Users\Microdata\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2020/02/20 15:22:21.000.915,D:\Marcelo\ProjetoExecScript\ProjetoExecScript.dproj=C:\Users\Microdata\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2020/02/20 16:29:46.000.782,=D:\Marcelo\ProjetoExecScript\Unit1.pas</Transaction>
+    <Transaction>2020/02/20 16:30:03.000.031,D:\Marcelo\ProjetoExecScript\Classe.Funcoes.pas=D:\Marcelo\ProjetoExecScript\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>
