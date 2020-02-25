@@ -26,19 +26,16 @@ object ViewPrincipal: TViewPrincipal
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 935
     object pgcPrincipal: TPageControl
       Left = 0
       Top = 0
       Width = 884
       Height = 150
-      ActivePage = tsPrincipal
+      ActivePage = tsConexaoLocal
       Align = alClient
       TabOrder = 0
-      ExplicitWidth = 935
       object tsPrincipal: TTabSheet
         Caption = '  Principal  '
-        ExplicitWidth = 927
         object edtCaminhoScript: TLabeledEdit
           Left = 32
           Top = 82
@@ -112,13 +109,11 @@ object ViewPrincipal: TViewPrincipal
           ParentBackground = False
           ParentFont = False
           TabOrder = 3
-          ExplicitWidth = 927
         end
       end
       object tsConexaoLocal: TTabSheet
         Caption = '  Conex'#227'o Local  '
         ImageIndex = 2
-        ExplicitWidth = 927
         object lbl2: TLabel
           Left = 32
           Top = 0
@@ -270,7 +265,6 @@ object ViewPrincipal: TViewPrincipal
     BorderWidth = 3
     Caption = 'pnlExecScript'
     TabOrder = 1
-    ExplicitWidth = 935
     object grdPrincipal: TDBGrid
       Left = 3
       Top = 3
@@ -337,9 +331,6 @@ object ViewPrincipal: TViewPrincipal
       Lines.Strings = (
         '')
       TabOrder = 2
-      ExplicitLeft = 192
-      ExplicitTop = 320
-      ExplicitWidth = 185
     end
   end
   object cdsScriptExecutar: TClientDataSet

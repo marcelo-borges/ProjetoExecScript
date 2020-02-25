@@ -264,6 +264,8 @@ procedure TViewPrincipal.btnConectarCLClick(Sender: TObject);
 begin
   try
     try
+      cdsScriptExecutar.EmptyDataSet;
+      edtCaminhoScript.Clear;
       conPrincipal.Connected := False;
       conPrincipal.Protocol := returnProtocoloConexao(cbbProtocoloCL.Text);
       conPrincipal.HostName := edtHostCL.Text;
