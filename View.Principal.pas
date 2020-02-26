@@ -315,6 +315,7 @@ begin
             mmoPrincipal.Lines.Clear;
             F.AguardeOn('Processando os scripts...',Self);
             zpPrincipal.Connection := conPrincipal;
+
             cdsScriptExecutar.First;
             while not cdsScriptExecutar.Eof do
             begin
