@@ -292,6 +292,7 @@ end;
 procedure TViewPrincipal.btnDesconectarClick(Sender: TObject);
 begin
   conPrincipal.Disconnect;
+  cdsScriptExecutar.EmptyDataSet;
   pgcPrincipal.ActivePage := tsPrincipal;
 end;
 
@@ -318,12 +319,14 @@ begin
             while not cdsScriptExecutar.Eof do
             begin
               vlsScript := cdsScriptExecutarNomeArquivo.AsString;
+
               F.AguardeOn('Executando: ' + vlsScript,Self);
               zpPrincipal.Script.Clear;
               zpPrincipal.Script.LoadFromFile(cdsScriptExecutarCaminhoCompleto.AsString);
               zpPrincipal.Execute;
 
               mmoPrincipal.Lines.Add('Executado com sucesso: ' + vlsScript);
+
               cdsScriptExecutar.Next;
             end;
 
