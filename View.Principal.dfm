@@ -3,7 +3,7 @@ object ViewPrincipal: TViewPrincipal
   Top = 0
   Caption = 'ExecScript -  by Marcelo Borges'
   ClientHeight = 568
-  ClientWidth = 884
+  ClientWidth = 892
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,7 +21,7 @@ object ViewPrincipal: TViewPrincipal
   object pnlPesquisaScripts: TPanel
     Left = 0
     Top = 0
-    Width = 884
+    Width = 892
     Height = 150
     Align = alTop
     BevelOuter = bvNone
@@ -29,7 +29,7 @@ object ViewPrincipal: TViewPrincipal
     object pgcPrincipal: TPageControl
       Left = 0
       Top = 0
-      Width = 884
+      Width = 892
       Height = 150
       ActivePage = tsConexaoLocal
       Align = alClient
@@ -39,7 +39,7 @@ object ViewPrincipal: TViewPrincipal
         object edtCaminhoScript: TLabeledEdit
           Left = 32
           Top = 82
-          Width = 745
+          Width = 601
           Height = 21
           EditLabel.Width = 95
           EditLabel.Height = 13
@@ -49,7 +49,7 @@ object ViewPrincipal: TViewPrincipal
           OnKeyDown = edtCaminhoScriptKeyDown
         end
         object btnBuscar: TButton
-          Left = 776
+          Left = 632
           Top = 81
           Width = 21
           Height = 23
@@ -58,7 +58,7 @@ object ViewPrincipal: TViewPrincipal
           OnClick = btnBuscarClick
         end
         object btnExecScript: TBitBtn
-          Left = 803
+          Left = 659
           Top = 74
           Width = 169
           Height = 37
@@ -96,7 +96,7 @@ object ViewPrincipal: TViewPrincipal
         object pnlConectado: TPanel
           Left = 0
           Top = 0
-          Width = 876
+          Width = 884
           Height = 50
           Align = alTop
           Caption = 'pnlConectado'
@@ -128,15 +128,12 @@ object ViewPrincipal: TViewPrincipal
           Height = 13
           Caption = 'Banco de Dados'
         end
-        object edtHostCL: TLabeledEdit
+        object lbl1: TLabel
           Left = 32
-          Top = 64
-          Width = 169
-          Height = 21
-          EditLabel.Width = 68
-          EditLabel.Height = 13
-          EditLabel.Caption = 'Host Conex'#227'o'
-          TabOrder = 0
+          Top = 48
+          Width = 48
+          Height = 13
+          Caption = 'Hostname'
         end
         object edtUsuarioCL: TLabeledEdit
           Left = 216
@@ -146,7 +143,7 @@ object ViewPrincipal: TViewPrincipal
           EditLabel.Width = 85
           EditLabel.Height = 13
           EditLabel.Caption = 'Usu'#225'rio Database'
-          TabOrder = 1
+          TabOrder = 0
         end
         object edtSenhaCL: TLabeledEdit
           Left = 216
@@ -157,7 +154,7 @@ object ViewPrincipal: TViewPrincipal
           EditLabel.Height = 13
           EditLabel.Caption = 'Senha Database'
           PasswordChar = '#'
-          TabOrder = 2
+          TabOrder = 1
         end
         object btnConectarCL: TBitBtn
           Left = 416
@@ -192,7 +189,7 @@ object ViewPrincipal: TViewPrincipal
             1515152E2E2E5E5E5F7A7A7A7D7D7D7E7E7E7E7E7E7E7E7E7979795C5C5C2D2D
             2D121212FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
             00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
-          TabOrder = 3
+          TabOrder = 2
           OnClick = btnConectarCLClick
         end
         object cbbProtocoloCL: TComboBox
@@ -200,7 +197,7 @@ object ViewPrincipal: TViewPrincipal
           Top = 16
           Width = 169
           Height = 21
-          TabOrder = 4
+          TabOrder = 3
           Text = 'SQL Server'
           Items.Strings = (
             'SQL Server'
@@ -213,7 +210,7 @@ object ViewPrincipal: TViewPrincipal
           Top = 16
           Width = 204
           Height = 21
-          TabOrder = 5
+          TabOrder = 4
         end
         object btnDesconectar: TBitBtn
           Left = 520
@@ -248,8 +245,24 @@ object ViewPrincipal: TViewPrincipal
             FF00FFD2D0CDD2D0CDD2D0CDD2D0CDD2D0CDD2D0CDD2D0CDD2D0CDD2D0CDE3E2
             E1000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFEFEFEEF2F2F2ED
             EDECEEEEEDF2F2F2EBEAE9000000FF00FFFF00FFFF00FFFF00FF}
-          TabOrder = 6
+          TabOrder = 5
           OnClick = btnDesconectarClick
+        end
+        object cbbHostCL: TComboBox
+          Left = 32
+          Top = 64
+          Width = 149
+          Height = 21
+          TabOrder = 6
+        end
+        object btnAddHost: TButton
+          Left = 180
+          Top = 63
+          Width = 21
+          Height = 23
+          Caption = '...'
+          TabOrder = 7
+          OnClick = btnAddHostClick
         end
       end
     end
@@ -257,7 +270,7 @@ object ViewPrincipal: TViewPrincipal
   object pnlExecScript: TPanel
     Left = 0
     Top = 150
-    Width = 884
+    Width = 892
     Height = 418
     Align = alClient
     BevelOuter = bvNone
@@ -268,7 +281,7 @@ object ViewPrincipal: TViewPrincipal
     object grdPrincipal: TDBGrid
       Left = 3
       Top = 3
-      Width = 878
+      Width = 886
       Height = 292
       Align = alClient
       DataSource = dsrScriptExecutar
@@ -315,7 +328,7 @@ object ViewPrincipal: TViewPrincipal
     object dbnvgrPrincipal: TDBNavigator
       Left = 3
       Top = 384
-      Width = 878
+      Width = 886
       Height = 31
       DataSource = dsrScriptExecutar
       VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
@@ -325,7 +338,7 @@ object ViewPrincipal: TViewPrincipal
     object mmoPrincipal: TMemo
       Left = 3
       Top = 295
-      Width = 878
+      Width = 886
       Height = 89
       Align = alBottom
       Lines.Strings = (
@@ -422,7 +435,7 @@ object ViewPrincipal: TViewPrincipal
     Top = 278
   end
   object il1: TImageList
-    Left = 780
-    Top = 72
+    Left = 844
+    Top = 24
   end
 end

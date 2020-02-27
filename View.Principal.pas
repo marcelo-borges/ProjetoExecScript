@@ -29,7 +29,6 @@ type
     edtCaminhoScript: TLabeledEdit;
     btnBuscar: TButton;
     tsConexaoLocal: TTabSheet;
-    edtHostCL: TLabeledEdit;
     edtUsuarioCL: TLabeledEdit;
     edtSenhaCL: TLabeledEdit;
     btnConectarCL: TBitBtn;
@@ -48,6 +47,9 @@ type
     mmoPrincipal: TMemo;
     btnDesconectar: TBitBtn;
     il1: TImageList;
+    cbbHostCL: TComboBox;
+    lbl1: TLabel;
+    btnAddHost: TButton;
     procedure mniMarcarTodosClick(Sender: TObject);
     procedure mniDesmarcarTodosClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -69,6 +71,7 @@ type
     procedure tmrPrincipalTimer(Sender: TObject);
     procedure conPrincipalAfterDisconnect(Sender: TObject);
     procedure btnDesconectarClick(Sender: TObject);
+    procedure btnAddHostClick(Sender: TObject);
   private
     FConectado: Boolean;
     FValorSequencia: Integer;
@@ -93,6 +96,17 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TViewPrincipal.btnAddHostClick(Sender: TObject);
+var
+  vlsHost: string;
+begin
+  vlsHost := InputBox('Adicionar Host SQL Server','Digite o novo Servidor: ','');
+  if vlsHost <> EmptyStr then
+  begin
+    cbbHostCL.Items.Add(vlsHost);
+  end;
+end;
 
 procedure TViewPrincipal.btnBuscarClick(Sender: TObject);
 begin
@@ -125,7 +139,8 @@ procedure TViewPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   conPrincipal.Disconnect;
   conSecundaria.Disconnect;
-  cbbDatabaseCL.Items.SaveToFile(ExtractFilePath(Application.ExeName) + '\ConfiguracaoComboboxExecScript.ini');
+  cbbDatabaseCL.Items.SaveToFile(ExtractFilePath(Application.ExeName) + '\ConfiguracaoComboboxHostExecScript.ini');
+  cbbHostCL.Items.SaveToFile(ExtractFilePath(Application.ExeName) + '\ConfiguracaoComboboxHostExecScript.ini');
 end;
 
 procedure TViewPrincipal.FormCreate(Sender: TObject);
@@ -137,6 +152,9 @@ begin
   ConexaoBancoDisplay;
   if FileExists(ExtractFilePath(Application.ExeName) + '\ConfiguracaoComboboxExecScript.ini') then
     cbbDatabaseCL.Items.LoadFromFile(ExtractFilePath(Application.ExeName) + '\ConfiguracaoComboboxExecScript.ini');
+  if FileExists(ExtractFilePath(Application.ExeName) + '\ConfiguracaoComboboxHostExecScript.ini') then
+    cbbHostCL.Items.LoadFromFile(ExtractFilePath(Application.ExeName) + '\ConfiguracaoComboboxHostExecScript.ini');
+
 end;
 
 procedure TViewPrincipal.FormDestroy(Sender: TObject);
@@ -268,7 +286,7 @@ begin
       edtCaminhoScript.Clear;
       conPrincipal.Connected := False;
       conPrincipal.Protocol := returnProtocoloConexao(cbbProtocoloCL.Text);
-      conPrincipal.HostName := edtHostCL.Text;
+      conPrincipal.HostName := cbbHostCL.Text;
       conPrincipal.Database := cbbDatabaseCL.Text;
       conPrincipal.User := edtUsuarioCL.Text;
       conPrincipal.Password := edtSenhaCL.Text;
@@ -293,6 +311,7 @@ procedure TViewPrincipal.btnDesconectarClick(Sender: TObject);
 begin
   conPrincipal.Disconnect;
   cdsScriptExecutar.EmptyDataSet;
+  edtCaminhoScript.Clear;
   pgcPrincipal.ActivePage := tsPrincipal;
 end;
 
@@ -397,7 +416,7 @@ begin
       vlsBanco := cbbDatabaseCL.Text;
       conSecundaria.Connected := False;
       conSecundaria.Protocol := returnProtocoloConexao(cbbProtocoloCL.Text);
-      conSecundaria.HostName := edtHostCL.Text;
+      conSecundaria.HostName := cbbHostCL.Text;
       conSecundaria.Database := 'master';
       conSecundaria.User := edtUsuarioCL.Text;
       conSecundaria.Password := edtSenhaCL.Text;
@@ -444,7 +463,7 @@ var
 begin
   vloInifile := TIniFile.Create(ExtractFilePath(Application.ExeName) + '\ConfiguracaoExecScript.ini');
   vloInifile.WriteString('ConexaoLocal', 'Protocolo', cbbProtocoloCL.Text);
-  vloInifile.WriteString('ConexaoLocal', 'Hostname', edtHostCL.Text);
+  vloInifile.WriteString('ConexaoLocal', 'Hostname', cbbHostCL.Text);
   vloInifile.WriteString('ConexaoLocal', 'Database', cbbDatabaseCL.Text);
   vloInifile.WriteString('ConexaoLocal', 'Usuario', edtUsuarioCL.Text);
   vloInifile.WriteString('ConexaoLocal', 'Senha', edtSenhaCL.Text);
@@ -459,7 +478,7 @@ var
 begin
   vloInifile := TIniFile.Create(ExtractFilePath(Application.ExeName) + '\ConfiguracaoExecScript.ini');
   cbbProtocoloCL.Text :=  vloInifile.ReadString('ConexaoLocal', 'Protocolo', '');
-  edtHostCL.Text := vloInifile.ReadString('ConexaoLocal', 'Hostname', '');
+  cbbHostCL.Text := vloInifile.ReadString('ConexaoLocal', 'Hostname', '');
   cbbDatabaseCL.Text := vloInifile.ReadString('ConexaoLocal', 'Database', '');
   edtUsuarioCL.Text := vloInifile.ReadString('ConexaoLocal', 'Usuario', '');
   edtSenhaCL.Text := vloInifile.ReadString('ConexaoLocal', 'Senha', '');
@@ -491,7 +510,7 @@ begin
     pnlConectado.Font.Color := clGreen;
     pnlConectado.Font.Size := 15;
     pnlConectado.Font.Name := 'Segoe UI Light';
-    pnlConectado.Caption := 'Conectado em Servidor: ' + edtHostCL.Text + ', Banco de Dados: ' + cbbDatabaseCL.Text;
+    pnlConectado.Caption := 'Conectado em Servidor: ' + cbbHostCL.Text + ', Banco de Dados: ' + cbbDatabaseCL.Text;
   end
   else
   begin
