@@ -254,6 +254,7 @@ object ViewPrincipal: TViewPrincipal
           Width = 149
           Height = 21
           TabOrder = 6
+          OnChange = cbbHostCLChange
         end
         object btnAddHost: TButton
           Left = 180

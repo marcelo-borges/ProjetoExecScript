@@ -72,6 +72,7 @@ type
     procedure conPrincipalAfterDisconnect(Sender: TObject);
     procedure btnDesconectarClick(Sender: TObject);
     procedure btnAddHostClick(Sender: TObject);
+    procedure cbbHostCLChange(Sender: TObject);
   private
     FConectado: Boolean;
     FValorSequencia: Integer;
@@ -82,6 +83,7 @@ type
     function returnProtocoloConexao(FNomeConexao: string): string;
     procedure CarregarConexao;
     procedure ConexaoBancoDisplay;
+    procedure ListarDataBaseMaster;
     { Private declarations }
   public
     { Public declarations }
@@ -400,6 +402,11 @@ begin
   cdsScriptExecutar.Open;
 end;
 
+procedure TViewPrincipal.cbbHostCLChange(Sender: TObject);
+begin
+  //
+end;
+
 procedure TViewPrincipal.cdsScriptExecutarSelecaoGetText(Sender: TField;
   var Text: string; DisplayText: Boolean);
 begin
@@ -407,47 +414,9 @@ begin
 end;
 
 procedure TViewPrincipal.conPrincipalAfterConnect(Sender: TObject);
-var
-  vlsBanco: string;
 begin
-  try
-    try
-      ConexaoBancoDisplay;
-      vlsBanco := cbbDatabaseCL.Text;
-      conSecundaria.Connected := False;
-      conSecundaria.Protocol := returnProtocoloConexao(cbbProtocoloCL.Text);
-      conSecundaria.HostName := cbbHostCL.Text;
-      conSecundaria.Database := 'master';
-      conSecundaria.User := edtUsuarioCL.Text;
-      conSecundaria.Password := edtSenhaCL.Text;
-
-      conSecundaria.Connect;
-
-      qryPrincipal.Connection := conSecundaria;
-      qryPrincipal.SQL.Clear;
-      qryPrincipal.SQL.Add('SELECT name FROM sys.databases ');
-      qryPrincipal.SQL.Add('where name not in(''master'', ''tempdb'', ''model'', ''msdb'') ');
-      qryPrincipal.SQL.Add('order by name');
-      qryPrincipal.Open;
-
-      if qryPrincipal.RecordCount > 0 then
-      begin
-        cbbDatabaseCL.Items.Clear;
-        qryPrincipal.First;
-        while not qryPrincipal.Eof do
-        begin
-          cbbDatabaseCL.Items.Add(qryPrincipal.FieldByName('name').AsString);
-          qryPrincipal.Next;
-        end;
-
-        cbbDatabaseCL.ItemIndex := cbbDatabaseCL.Items.IndexOf(vlsBanco);
-      end;
-    except on E: Exception do
-      Application.MessageBox(PChar('Erro: ' + e.Message), 'Atenção', MB_OK + MB_ICONWARNING);
-    end;
-  finally
-    conSecundaria.Disconnect;
-  end;
+  ConexaoBancoDisplay;
+  ListarDataBaseMaster;
 end;
 
 procedure TViewPrincipal.conPrincipalAfterDisconnect(Sender: TObject);
@@ -518,6 +487,52 @@ begin
     pnlConectado.Font.Size := 15;
     pnlConectado.Font.Name := 'Segoe UI Light';
     pnlConectado.Caption := 'Desconectado em Servidor';
+  end;
+end;
+
+procedure TViewPrincipal.ListarDataBaseMaster;
+begin
+  try
+    try
+      F.AguardeOn('Listando Banco de Dados...',Self);
+      conSecundaria.Connected := False;
+      conSecundaria.Protocol := returnProtocoloConexao(cbbProtocoloCL.Text);
+      conSecundaria.HostName := cbbHostCL.Text;
+      conSecundaria.Database := 'master';
+      conSecundaria.User := edtUsuarioCL.Text;
+      conSecundaria.Password := edtSenhaCL.Text;
+
+      conSecundaria.Connect;
+
+      qryPrincipal.Connection := conSecundaria;
+      qryPrincipal.SQL.Clear;
+      qryPrincipal.SQL.Add('SELECT name FROM sys.databases ');
+      qryPrincipal.SQL.Add('where name not in(''master'', ''tempdb'', ''model'', ''msdb'') ');
+      qryPrincipal.SQL.Add('order by name');
+      qryPrincipal.Open;
+
+      if qryPrincipal.RecordCount > 0 then
+      begin
+        cbbDatabaseCL.Items.Clear;
+        qryPrincipal.First;
+        while not qryPrincipal.Eof do
+        begin
+          cbbDatabaseCL.Items.Add(qryPrincipal.FieldByName('name').AsString);
+          qryPrincipal.Next;
+        end;
+
+      end;
+    except on E: Exception do
+      begin
+        F.AguardeOff;
+        Application.MessageBox(PChar('Erro: ' + e.Message), 'Atenção', MB_OK + MB_ICONWARNING);
+      end;
+    end;
+  finally
+    begin
+      F.AguardeOff;
+      conSecundaria.Disconnect;
+    end;
   end;
 end;
 
